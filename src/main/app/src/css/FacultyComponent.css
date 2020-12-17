@@ -1,0 +1,39 @@
+/* .navbar-brand {
+  float: left;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+  font-size : 40px !important;
+  color: #000000 !important;
+} */
+
+
+.card {
+  border: none !important;
+  padding: 5px !important;
+}
+
+.card-body {
+  padding: 0px !important;
+}
+
+/*
+.table tbody td {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+*/
+
+.page-num {
+    width: 45px !important;
+    border: 1px solid #5cb85c;
+    color: #5cb85c;
+    text-align: center;
+    font-weight: bold;
+}
+
+.react-datepicker-popper {
+    z-index: 9999 !important;
+}
