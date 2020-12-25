@@ -1,8 +1,13 @@
 # assignment-portal-project
+
+For portal screenshots go to screenshots folder
+
 1.Create database in mysql using following query ->
 create database assignmentportaldb;
 
-2.Start java application run following queries in mysql
+2.Start java application
+
+3.After application starts run following queries in mysql
 
 insert into department values (1,'Computer');
 insert into department values (2,'IT');
@@ -30,9 +35,9 @@ SELECT sad.id, a.title, a.description, a.subject, a.submission_date, sad.file as
 	join assignmentportaldb.student s on s.user_id = sad.student_id
     where a.is_deleted = false;
 
-3.Go into src/main/app run following command -> 
+4.Go into src/main/app run following command ->
 npm install & npm start
 
-4.Sign in with following credentials ->
+5.Sign in with following credentials ->
 username= admin
 password= password

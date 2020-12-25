@@ -1,43 +1,11 @@
-use assignmentportaldb;
+create database assignmentportaldb;
 
-select * from student;
-delete from student where id =1;
-insert into student values(1,1,'sumit@gmail.com','8898981799','Sumit Jadala');
-insert into student values(2,2,'itachi@gmail.com','7865786534','Itachi Uchiha'); 
-insert into student values(3,3,'naruto@gmail.com','8987654323','Naruto Uzumaki'); 
+insert into department values (1,'Computer'); insert into department values (2,'IT'); insert into department values (3,'Mechanical');
+insert into roles values(1, 'ROLE_STUDENT');
+insert into roles values(2, 'ROLE_ADMIN');
+insert into roles values(3, 'ROLE_FACULTY');
+insert into users values(2,'admin@gmail.com','$2y$12$g7hqU4lVKPKCA8EbPk.fAOAbjQY7yyPB6kiPKpffYeDteFN/GHqlC','admin'); 
+insert into user_roles values(2,2);
 
-select * from department;
-insert into department values (1,'Computer');
-insert into department values (2,'IT');
-insert into department values (3,'Mechanical');
-
-select * from faculty;
-insert into faculty values (1,1,'kakashi@leaf.com','Kakashi hatake');
-insert into faculty values (2,2,'jiraya@leaf.com','Jiraya');
-insert into faculty values (3,3,'konohamaru@leaf.com','Konohamaru Sarutobi');
-
-select * from assignment;
-desc assignment;
-drop table assignment;
-delete from assignment where id = 2;
-
-drop table authorities;
-
-drop table student_assignment_details;
-select * from student_assignment_details;
-update student_assignment_details set is_submitted = 2 where student_id = 1;
-
-select * from user;
-insert into user(username,password,enabled)
-	values('admin','$2y$10$x3aVPqMlsii2/5l1V9e4/OQB1WP8KfWn9baxByFZ.y9sXp6jQj4ae',true);
-insert into authorities(username,authority) values('admin','ROLE_ADMIN');
-
-update assignment set is_assigned = true , is_deleted = false where id =1;
-
-select * from common_data;
-insert into common_data(name, detail) values ('submit_status','SUBMITTED');
-insert into common_data(name, detail) values ('submit_status','NOT_SUBMITTED');
-insert into common_data(name, detail) values ('submit_status','DUE_DATE_PASSED');
-
-
-
+DROP TABLE IF EXISTS assignmentportaldb.student_assignment_details_view;
+CREATE OR REPLACE VIEW assignmentportaldb.student_assignment_details_view AS SELECT sad.id, a.title, a.description, a.subject, a.submission_date, sad.file as student_submitted_file, f.faculty_name, f.user_id as faculty_id, s.student_name, s.user_id as student_id, a.assignment_details_file_name, a.is_deleted, a.id as assignment_id, CASE WHEN sad.file is not null then 1 WHEN DATE(a.submission_date) < DATE(CURRENT_TIMESTAMP) then 3 WHEN sad.file is null then 2 END as is_submitted FROM assignmentportaldb.student_assignment_details sad join assignmentportaldb.assignment a on a.id = sad.assignment_id join assignmentportaldb.faculty f on f.user_id = sad.faculty_id join assignmentportaldb.student s on s.user_id = sad.student_id where a.is_deleted = false;
